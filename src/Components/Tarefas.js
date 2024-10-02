@@ -1,60 +1,59 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
+function Tarefas(){
+  const [input, setInput] = useState('');
+  const [tarefas, setTarefas] = useState([
+    'Pagar a conta de luz',
+    'Estudar React JS'
+  ]);
 
-function Tarefes() {
-    const [input, setInput] = useState('');
-    const [tarefas, setTarefas] = useState([
-        'Pagar conta de luz',
-        'Estudar React'
-    ]);
+  useEffect(()=>{ 
+    localStorage.setItem('@tarefa', JSON.stringify(tarefas))
+  }, [tarefas]);
 
-    useEffect( ()=> {
-        const tarefasStorage = localStorage.getItem('@tarefa');
+  useEffect(()=>{
+    const tarefasStorage = localStorage.getItem('@tarefa');
 
-        if (tarefasStorage) {
-            setTarefas(JSON.parse(tarefasStorage))
-        }
-    }, [])
-
-    //Toda vez que monta a página, ele chama essa função
-    useEffect( () => {
-        //salva as informações no armazenamento local
-        localStorage.setItem('@tarefa', JSON.stringify(tarefas))
-    }, [tarefas])
-
-    function handleTarefas(e) {
-        e.preventDefault();
-
-        setTarefas([...tarefas, input]);
-        setInput('');
+    if(tarefasStorage){
+      setTarefas(JSON.parse(tarefasStorage))
     }
 
+  }, []);
 
-    return (
-        <div>
-            <form onSubmit={handleTarefas}>
-                <h1>Registrar Tarefa</h1>
 
-                <label>Tarefa</label> <br/>
+  function handleRegister(e){
+    e.preventDefault();
 
-                <input
-                placeholder='Digite a tarefa'
-                value={input}
-                onChange={(e) => setInput(e.target.value)} />
+    setTarefas([...tarefas, input]);
+    setInput('');
 
-                <button type='Submit'> Tarefa nova </button>
-            </form>
-        
+  }
 
-        <ul>
-            {tarefas.map( tarefa => (
-                <li key={tarefa}>{tarefa}</li>
-            ))}
-        </ul>
+  return(
+    <div>
+      <h1>Cadastrando usuario</h1>
 
-        </div>
-    )
+      <form onSubmit={handleRegister}>
+        <label>Nome da tarefa:</label><br/>
+        <input 
+         placeholder="Digite uma tarefa" 
+         value={input}
+         onChange={ (e) => setInput(e.target.value) }
+        /><br/>
+        <button type="submit">Registrar</button>
+      </form>
+
+      <br/><br/>
+
+      <ul>
+        {tarefas.map( tarefa => (
+          <li key={tarefa}>{tarefa}</li>
+        ))}
+      </ul>
+
+    </div>
+  );
 }
 
+export default Tarefas;
 
-export default Tarefes;
