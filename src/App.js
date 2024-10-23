@@ -1,35 +1,54 @@
-import { useState } from 'react';
-import Nome from "./Components/Nome";
-import Formulario from './Components/Formulario';
-import Tarefas from './Components/Tarefas';
+import React, { useState, useEffect } from 'react';
+import './style.css';
+
+//https://sujeitoprogramador.com/rn-api/?api=posts
 
 function App() {
-  const [aluno, setAluno] = useState('Sujeito Programador');
 
-  //Funcao para ao clicar o botao, ele alterar o nome
-  function changeName(nome){
-    setAluno(nome);
-  }
+    const [nutri, setNutri] = useState([])
 
-  return (
-    <div className="App">
-      <h1>
-        Bem vindo ao meu projeto
-      </h1>
+    //renderizar quando abrir a página
+    useEffect(() => {
 
-      <h2>Ola {aluno} </h2>
-      <button onClick={() => changeName('Diogenes')}>
-        Mudar Nome
-      </button>
+        function loadApi(){
+            let url = 'https://sujeitoprogramador.com/rn-api/?api=posts'
+            fetch(url)
+                .then((r)=> r.json())
+                .then((json) => {
+                    console.log(json);
+                    setNutri(json)
+                })
+        }
 
-      <Nome aluno="Jose" idade={30}/>
+        loadApi()
+    }, [])
 
-      <Formulario/>
+    return (
+        <div className="App">
+            <div className="container">
+                <header>
+                    <strong>
+                        React Nutri
+                    </strong>
+                </header>
 
-      <Tarefas/>
-
-    </div>
-  );
+                {nutri.map((item) => {
+                    return (
+                        <article key={item.id} className="posts">
+                            <strong className="titulo">
+                                {item.titulo}
+                            </strong> <br/>
+                            <img src={item.capa} alt={item.titulo} className="capa" />
+                            <p>
+                                {item.subtitulo}
+                            </p>
+                            <a className="botao">Acessar</a>
+                        </article>
+                    )
+                })}
+            </div>
+        </div>
+    );
 }
 
 
