@@ -1,12 +1,17 @@
 import {BrowserRouter, Route} from 'react-router-dom';
 import Home from "./pages/Home";
-import Requisicoes from "./Components/Requisicoes";
+import Sobre from "./pages/Sobre";
+import Contato from "./pages/Contato";
+import Index from "./Components/Header";
+
 
 const Routes = () => {
     return (
         <BrowserRouter>
+            <Index/>
             <Route path="/" component={Home}/>
-            <Route path="/Nutri" component={Requisicoes}/>
+            <Route path="/sobre" component={Sobre}/>
+            <Route path="/contato" component={Contato} />
         </BrowserRouter>
     )
 }

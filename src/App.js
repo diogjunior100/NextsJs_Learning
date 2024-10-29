@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import './style.css';
 import Routes from './routes';
 
-function App() {
+export default function App() {
     return (
-        <Routes />
+        <Routes/>
     );
 }
-
-export default App;

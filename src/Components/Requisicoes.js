@@ -19,7 +19,7 @@ export default function Requisicoes (){
     }, [])
 
     return (
-        <div className="App">
+        <div className="Requisicoes">
             <div className="container">
                 <header>
                     <strong>
