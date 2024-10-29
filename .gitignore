@@ -6,7 +6,3 @@ node_modules/
 
 #.idea/
 .idea/
-
-#package json
-package-lock.json
-package.json
