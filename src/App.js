@@ -1,8 +1,13 @@
 import './style.css';
 import Routes from './routes';
+import Header from './Components/Header'
 
 export default function App() {
     return (
-        <Routes/>
+        <div>
+            <Header/>
+            <Routes/>
+        </div>
+
     );
 }
